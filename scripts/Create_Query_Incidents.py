@@ -26,9 +26,10 @@ parser = argparse.ArgumentParser( description=Usage_Msg , formatter_class=RawTex
 # Grab KBA
 
 # Typical operations for ServiceNow states
-parser.add_argument( "-r", "--resolve", help = "Resolves targeted Incident",  action="store_true")
 parser.add_argument( "-n", "--new", help = "Incident is logged but not yet triaged.",  action="store_true")
-parser.add_argument( "-u", "--update", help = "Incident is logged but not yet triaged.",  action="store_true")
+parser.add_argument( "-r", "--resolve", help = "Resolves targeted Incident",  action="store_true")
+parser.add_argument( "-c", "--close", help = "Closes targeted Incident",  action="store_true")
+parser.add_argument( "-u", "--update", help = "Update incident data",  action="store_true")
 parser.add_argument( "-q", "--query", help = "Query Incident.",  action="store_true")
 parser.add_argument( "-act", "--action", help = "Incident is not yet triaged.",  action="store_true")
 
@@ -194,21 +195,27 @@ def Command_Create_Incident():
 
     print("==== START Incident Payload for ServiceNow ====")
 
-    print(json.dumps(New_Incident, indent=2))
+    # print(json.dumps(New_Incident, indent=2))
 
     print("==== END Incident Payload for ServiceNow ====")
 
     result = Inc_Res.create(payload=New_Incident)
-
+    
     print("==== Response ====")
-    print(result)
+    # print(result)
     res_rec = result.one()
+    ticket_n = res_rec['number']
     print("==== Incident Result JSON ====")
-    print(json.dumps(res_rec, indent=2))
+    # print(json.dumps(res_rec, indent=2))
     #
     # for key in res_rec.keys():
     #     print(key + "," + res_rec[key])
-
+    
+    # Mark ticket opener as caller
+    opened_by_id = res_rec['opened_by']['value']
+    update = {'caller_id': opened_by_id}
+    Inc_Res.update(query={'number': ticket_n}, payload=update)
+    
     print("==== End Of Script ====")
 
 def Command_Update_Incident():
@@ -318,6 +325,46 @@ def Command_Update_Incident():
 
     print("==== End Of Script ====")
 
+def Command_Close_Incident():
+    desired_state = 7
+    if args.TicketNum != None:
+        ticket_n = args.TicketNum
+    else:
+        print("Ticket Number not supplied. Exiting.")
+        sys.exit(1)
+        
+    try:
+        update = {'state': desired_state}
+        updated_record = Inc_Res.update(query={'number': ticket_n}, payload=update)
+        updated_state = int(updated_record.one()['state'])
+        if desired_state != updated_state:
+            print("Completed but failed changing ticket state to desired value.")
+        else:
+            print("Ticket %s marked Closed." % ticket_n)
+    except pysnow.exceptions.NoResults:
+        print("Failed to find incident with ref: %s" % ticket_n)
+    
+def Command_Resolve_Incident():
+    desired_state = 6
+    if args.TicketNum != None:
+        ticket_n = args.TicketNum
+    else:
+        print("Ticket Number not supplied. Exiting.")
+        sys.exit(1)
+        
+    try:
+        update = {'state': desired_state}
+        updated_record = Inc_Res.update(query={'number': ticket_n}, payload=update)
+        updated_state = int(updated_record.one()['state'])
+        if desired_state != updated_state:
+            print("Completed but failed changing ticket state to desired value.")
+        else:
+            print("Ticket %s marked Resolved." % ticket_n)
+    except pysnow.exceptions.NoResults:
+        print("Failed to find incident with ref: %s" % ticket_n)
+    
+     
+    
 def Action_Create_Update_Incident():
 
     GATEWAY=EnvData["_GATEWAY"]
@@ -379,9 +426,15 @@ if __name__ == '__main__':
     # else:
     # Command_Create_Incident()
     #
-    if (args.new):
+    if args.new:
         Command_Create_Incident()
-    elif (args.update):
+    elif args.update:
         Command_Update_Incident()
-    elif (args.query):
+    elif args.resolve:
+        Command_Resolve_Incident()
+    elif args.close:
+        Command_Close_Incident()
+    elif args.query:
         Query_Incident()
+    else:
+        print("Unsuported Options")
