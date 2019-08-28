@@ -1,0 +1,1570 @@
+<gateway compatibility="1" xsi:noNamespaceSchemaLocation="http://schema.itrsgroup.com/GA4.12.0-190730/gateway.xsd">
+    <types>
+        <type name="ServiceNow">
+            <sampler ref="Incidents-Open"></sampler>
+            <sampler ref="Incidents-OnHold"></sampler>
+            <sampler ref="Incidents-InProgress"></sampler>
+            <sampler ref="Change-New"></sampler>
+            <sampler ref="Change-OnHold"></sampler>
+            <sampler ref="Change-Closed"></sampler>
+        </type>
+    </types>
+    <samplers>
+        <samplerGroup name="Service Now Incident">
+            <sampler name="Incidents-Open">
+                <var-group>
+                    <var ref="GROUP_NAME"></var>
+                </var-group>
+                <displayName>Service Now Incidents-Open</displayName>
+                <plugin>
+                    <toolkit>
+                        <samplerScript>
+                            <var ref="PYTHON_PATH"></var>
+                            <data> List_Query_Incidents.py</data>
+                        </samplerScript>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/incident</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                        <script>
+                            <contents>
+                                <var ref="SERVNOW_QUERY_SCRIPT"></var>
+                            </contents>
+                            <filename>
+                                <data>List_Query_Incidents.py</data>
+                            </filename>
+                        </script>
+                        <showExecutionDuration>true</showExecutionDuration>
+                    </toolkit>
+                </plugin>
+            </sampler>
+            <sampler name="Incidents-OnHold">
+                <var-group>
+                    <var ref="GROUP_NAME"></var>
+                </var-group>
+                <displayName>Service Now Incidents-OnHold</displayName>
+                <plugin>
+                    <toolkit>
+                        <samplerScript>
+                            <var ref="PYTHON_PATH"></var>
+                            <data> List_Query_Incidents.py -s 3</data>
+                        </samplerScript>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/incident</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                        <script>
+                            <contents>
+                                <var ref="SERVNOW_QUERY_SCRIPT"></var>
+                            </contents>
+                            <filename>
+                                <data>List_Query_Incidents.py</data>
+                            </filename>
+                        </script>
+                        <showExecutionDuration>true</showExecutionDuration>
+                    </toolkit>
+                </plugin>
+            </sampler>
+            <sampler name="Incidents-InProgress">
+                <var-group>
+                    <var ref="GROUP_NAME"></var>
+                </var-group>
+                <displayName>Service Now Incidents-InProgress</displayName>
+                <plugin>
+                    <toolkit>
+                        <samplerScript>
+                            <var ref="PYTHON_PATH"></var>
+                            <data> List_Query_Incidents.py -s 2</data>
+                        </samplerScript>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/incident</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                        <script>
+                            <contents>
+                                <var ref="SERVNOW_QUERY_SCRIPT"></var>
+                            </contents>
+                            <filename>
+                                <data>List_Query_Incidents.py</data>
+                            </filename>
+                        </script>
+                        <showExecutionDuration>true</showExecutionDuration>
+                    </toolkit>
+                </plugin>
+            </sampler>
+        </samplerGroup>
+        <samplerGroup name="Service Now Change">
+            <sampler name="Change-New">
+                <var-group>
+                    <var ref="GROUP_NAME"></var>
+                </var-group>
+                <displayName>ServiceNow Change-New</displayName>
+                <plugin>
+                    <toolkit>
+                        <samplerScript>
+                            <var ref="PYTHON_PATH"></var>
+                            <data> List_Query_Incidents.py -s -5</data>
+                        </samplerScript>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/change_request</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                        <script>
+                            <contents>
+                                <var ref="SERVNOW_QUERY_SCRIPT"></var>
+                            </contents>
+                            <filename>
+                                <data>List_Query_Incidents.py</data>
+                            </filename>
+                        </script>
+                        <showExecutionDuration>true</showExecutionDuration>
+                    </toolkit>
+                </plugin>
+            </sampler>
+            <sampler name="Change-OnHold">
+                <var-group>
+                    <var ref="GROUP_NAME"></var>
+                </var-group>
+                <displayName>Service Now Change-OnHold</displayName>
+                <plugin>
+                    <toolkit>
+                        <samplerScript>
+                            <var ref="PYTHON_PATH"></var>
+                            <data> List_Query_Incidents.py -s 3</data>
+                        </samplerScript>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/change_request</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                        <script>
+                            <contents>
+                                <var ref="SERVNOW_QUERY_SCRIPT"></var>
+                            </contents>
+                            <filename>
+                                <data>List_Query_Incidents.py</data>
+                            </filename>
+                        </script>
+                        <showExecutionDuration>true</showExecutionDuration>
+                    </toolkit>
+                </plugin>
+            </sampler>
+            <sampler name="Change-Closed">
+                <var-group>
+                    <var ref="GROUP_NAME"></var>
+                </var-group>
+                <displayName>Service Now Change-Closed</displayName>
+                <plugin>
+                    <toolkit>
+                        <samplerScript>
+                            <var ref="PYTHON_PATH"></var>
+                            <data> List_Query_Incidents.py -s 3</data>
+                        </samplerScript>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/change_request</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                        <script>
+                            <contents>
+                                <var ref="SERVNOW_QUERY_SCRIPT"></var>
+                            </contents>
+                            <filename>
+                                <data>List_Query_Incidents.py</data>
+                            </filename>
+                        </script>
+                        <showExecutionDuration>true</showExecutionDuration>
+                    </toolkit>
+                </plugin>
+            </sampler>
+        </samplerGroup>
+    </samplers>
+    <commands>
+        <commandGroup name="ServiceNow  ">
+            <commandGroup name="Incidents">
+                <menu>
+                    <label>ServiceNow</label>
+                </menu>
+                <command name="Create Incident">
+                    <description>Create a new open ticket in Service Now</description>
+                    <targets>
+                        <target>/geneos/gateway/directory/probe/managedEntity/sampler/dataview/rows/row/cell</target>
+                    </targets>
+                    <userCommand>
+                        <type>script</type>
+                        <runLocation>gateway</runLocation>
+                        <args>
+                            <arg>
+                                <static>&lt;python path&gt;</static>
+                            </arg>
+                            <arg>
+                                <static>&lt;dir&gt;/Create_Query_Incidents.py</static>
+                            </arg>
+                            <arg>
+                                <static>-gw</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::gateway/directory/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-np</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::probe/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-me</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::managedEntity/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-spr</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::sampler/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-dv</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::dataview/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-col</static>
+                            </arg>
+                            <arg>
+                                <xpath>@column</xpath>
+                            </arg>
+                            <arg>
+                                <static>-rn</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                            <arg>
+                                <static>-val</static>
+                            </arg>
+                            <arg>
+                                <xpath>@value</xpath>
+                            </arg>
+                            <arg>
+                                <static>-im</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Impact? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-ur</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Urgency? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-nt</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Notes for Description:</description>
+                                    <singleLineString>Incident Open</singleLineString>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-n</static>
+                            </arg>
+                        </args>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <data>&lt;username&gt;</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <data>&lt;password&gt;</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/incident</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <data>&lt;instance&gt;</data>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                    </userCommand>
+                </command>
+                <command name="Update Incident">
+                    <description>Update a ticket in Service Now</description>
+                    <targets>
+                        <target>/geneos/gateway/directory/probe/managedEntity/sampler/dataview[wild(@name,&quot;Incidents-*&quot;)]/rows/row/cell</target>
+                    </targets>
+                    <userCommand>
+                        <type>script</type>
+                        <runLocation>gateway</runLocation>
+                        <args>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>&lt;python path&gt;</static>
+                            </arg>
+                            <arg>
+                                <static>&lt;dir&gt;/Create_Query_Incidents.py</static>
+                            </arg>
+                            <arg>
+                                <static>-gw</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::gateway/directory/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-np</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::probe/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-me</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::managedEntity/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-spr</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::sampler/@name</xpath>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>-dv</static>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <xpath>ancestor::dataview/@name</xpath>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>-col</static>
+                            </arg>
+                            <arg>
+                                <xpath>@column</xpath>
+                            </arg>
+                            <arg>
+                                <static>-rn</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                            <arg>
+                                <static>-val</static>
+                            </arg>
+                            <arg>
+                                <xpath>@value</xpath>
+                            </arg>
+                            <arg>
+                                <static>-im</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Impact? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-ur</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Urgency? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-nt</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Notes for Description:</description>
+                                    <singleLineString>Incident Update</singleLineString>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-u</static>
+                            </arg>
+                            <arg>
+                                <static>--TicketNum</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                        </args>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/incident</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                    </userCommand>
+                </command>
+                <command name="Query JSON">
+                    <description>For querying a ticket in Service Now</description>
+                    <targets>
+                        <target>/geneos/gateway/directory/probe/managedEntity/sampler/dataview[wild(@name,&quot;Incidents-*&quot;)]/rows/row/cell</target>
+                    </targets>
+                    <userCommand>
+                        <type>script</type>
+                        <runLocation>gateway</runLocation>
+                        <args>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>&lt;python path&gt;</static>
+                            </arg>
+                            <arg>
+                                <static>&lt;dir&gt;/Create_Query_Incidents.py</static>
+                            </arg>
+                            <arg>
+                                <static>-q</static>
+                            </arg>
+                            <arg>
+                                <static>-tn</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                        </args>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/incident</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                    </userCommand>
+                </command>
+                <command name="Resolve Incident">
+                    <description>Resolve a ticket in Service Now</description>
+                    <targets>
+                        <target>/geneos/gateway/directory/probe/managedEntity/sampler/dataview[wild(@name,&quot;Incidents-*&quot;)]/rows/row/cell</target>
+                    </targets>
+                    <userCommand>
+                        <type>script</type>
+                        <runLocation>gateway</runLocation>
+                        <args>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>&lt;python path&gt;</static>
+                            </arg>
+                            <arg>
+                                <static>&lt;dir&gt;/Create_Query_Incidents.py</static>
+                            </arg>
+                            <arg>
+                                <static>-gw</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::gateway/directory/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-np</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::probe/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-me</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::managedEntity/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-spr</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::sampler/@name</xpath>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>-dv</static>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <xpath>ancestor::dataview/@name</xpath>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>-col</static>
+                            </arg>
+                            <arg>
+                                <xpath>@column</xpath>
+                            </arg>
+                            <arg>
+                                <static>-rn</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                            <arg>
+                                <static>-val</static>
+                            </arg>
+                            <arg>
+                                <xpath>@value</xpath>
+                            </arg>
+                            <arg>
+                                <static>-im</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Impact? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-ur</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Urgency? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>--resolve</static>
+                            </arg>
+                            <arg>
+                                <static>-tn</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                        </args>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/incident</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                    </userCommand>
+                </command>
+                <command name="Close Incident">
+                    <description>Close a ticket in Service Now</description>
+                    <targets>
+                        <target>/geneos/gateway/directory/probe/managedEntity/sampler/dataview[wild(@name,&quot;Incidents-*&quot;)]/rows/row/cell</target>
+                    </targets>
+                    <userCommand>
+                        <type>script</type>
+                        <runLocation>gateway</runLocation>
+                        <args>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>&lt;python path&gt;</static>
+                            </arg>
+                            <arg>
+                                <static>&lt;dir&gt;/Create_Query_Incidents.py</static>
+                            </arg>
+                            <arg>
+                                <static>-gw</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::gateway/directory/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-np</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::probe/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-me</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::managedEntity/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-spr</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::sampler/@name</xpath>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>-dv</static>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <xpath>ancestor::dataview/@name</xpath>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>-col</static>
+                            </arg>
+                            <arg>
+                                <xpath>@column</xpath>
+                            </arg>
+                            <arg>
+                                <static>-rn</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                            <arg>
+                                <static>-val</static>
+                            </arg>
+                            <arg>
+                                <xpath>@value</xpath>
+                            </arg>
+                            <arg>
+                                <static>-im</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Impact? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-ur</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Urgency? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>--close</static>
+                            </arg>
+                            <arg>
+                                <static>-tn</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                        </args>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/incident</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                    </userCommand>
+                </command>
+            </commandGroup>
+            <commandGroup name="Change Request">
+                <menu>
+                    <label>ServiceNow</label>
+                </menu>
+                <command name="Create Change">
+                    <description>Create a new Change Request in Service Now</description>
+                    <targets>
+                        <target>/geneos/gateway/directory/probe/managedEntity/sampler/dataview/rows/row/cell</target>
+                    </targets>
+                    <userCommand>
+                        <type>script</type>
+                        <runLocation>gateway</runLocation>
+                        <args>
+                            <arg>
+                                <static>&lt;python path&gt;</static>
+                            </arg>
+                            <arg>
+                                <static>&lt;dir&gt;/opt/geneos/binaries/netprobe/1234/netprobe/Create_Query_Change.py</static>
+                            </arg>
+                            <arg>
+                                <static>-gw</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::gateway/directory/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-np</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::probe/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-me</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::managedEntity/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-spr</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::sampler/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-dv</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::dataview/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-col</static>
+                            </arg>
+                            <arg>
+                                <xpath>@column</xpath>
+                            </arg>
+                            <arg>
+                                <static>-rn</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                            <arg>
+                                <static>-val</static>
+                            </arg>
+                            <arg>
+                                <xpath>@value</xpath>
+                            </arg>
+                            <arg>
+                                <static>-im</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Impact? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-ur</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Urgency? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-nt</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Notes for Description:</description>
+                                    <singleLineString>Change Open</singleLineString>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-n</static>
+                            </arg>
+                        </args>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <data>&lt;username&gt;</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <data>&lt;password&gt;</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/incident</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <data>&lt;instance&gt;</data>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                    </userCommand>
+                </command>
+                <command name="Update Change">
+                    <description>Update a Change request in Service Now</description>
+                    <targets>
+                        <target>/geneos/gateway/directory/probe/managedEntity/sampler/dataview[wild(@name,&quot;Change-*&quot;)]/rows/row/cell</target>
+                    </targets>
+                    <userCommand>
+                        <type>script</type>
+                        <runLocation>gateway</runLocation>
+                        <args>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>&lt;python path&gt;</static>
+                            </arg>
+                            <arg>
+                                <static>&lt;dir&gt;/Create_Query_Change.py</static>
+                            </arg>
+                            <arg>
+                                <static>-gw</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::gateway/directory/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-np</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::probe/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-me</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::managedEntity/@name</xpath>
+                            </arg>
+                            <arg>
+                                <static>-spr</static>
+                            </arg>
+                            <arg>
+                                <xpath>ancestor::sampler/@name</xpath>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>-dv</static>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <xpath>ancestor::dataview/@name</xpath>
+                            </arg>
+                            <arg>
+                                <concatenate>false</concatenate>
+                                <static>-col</static>
+                            </arg>
+                            <arg>
+                                <xpath>@column</xpath>
+                            </arg>
+                            <arg>
+                                <static>-rn</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                            <arg>
+                                <static>-val</static>
+                            </arg>
+                            <arg>
+                                <xpath>@value</xpath>
+                            </arg>
+                            <arg>
+                                <static>-im</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Impact? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-ur</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Urgency? High - 1, Medium - 2, Low - 3</description>
+                                    <options>
+                                        <option>
+                                            <label>High</label>
+                                            <value>1</value>
+                                        </option>
+                                        <option>
+                                            <label>Medium</label>
+                                            <value>2</value>
+                                        </option>
+                                        <option>
+                                            <label>Low</label>
+                                            <value>3</value>
+                                        </option>
+                                    </options>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-nt</static>
+                            </arg>
+                            <arg>
+                                <userInput>
+                                    <description>Notes for Description:</description>
+                                    <singleLineString>Change Update</singleLineString>
+                                </userInput>
+                            </arg>
+                            <arg>
+                                <static>-u</static>
+                            </arg>
+                            <arg>
+                                <static>--TicketNum</static>
+                            </arg>
+                            <arg>
+                                <xpath>@rowname</xpath>
+                            </arg>
+                        </args>
+                        <environmentVariables>
+                            <variable>
+                                <name>SERVNOW_USER</name>
+                                <value>
+                                    <var ref="SERVNOW_USER"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_PASS</name>
+                                <value>
+                                    <var ref="SERVNOW_PASS"></var>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_TABLE</name>
+                                <value>
+                                    <data>/table/change_request</data>
+                                </value>
+                            </variable>
+                            <variable>
+                                <name>SERVNOW_INSTANCE</name>
+                                <value>
+                                    <var ref="SERVNOW_INSTANCE"></var>
+                                </value>
+                            </variable>
+                        </environmentVariables>
+                    </userCommand>
+                </command>
+            </commandGroup>
+        </commandGroup>
+    </commands>
+    <environments>
+        <environment name="ServiceNow">
+            <var name="PYTHON_PATH">
+                <string></string>
+            </var>
+            <var name="GROUP_NAME">
+                <string>SERVICE NOW</string>
+            </var>
+            <var name="SERVNOW_USER">
+                <string></string>
+            </var>
+            <var name="SERVNOW_PASS">
+                <string></string>
+            </var>
+            <var name="SERVNOW_QUERY_SCRIPT">
+                <externalConfigFile>import requests, base64, json, sys, argparse, os, time
+import urllib3
+import pysnow
+from datetime import datetime
+from argparse import RawTextHelpFormatter
+
+#Uber ASCII Art
+# For Supressing warnings
+urllib3.disable_warnings()
+Uber_Small_ASCII = (&quot; - Geneos Integrations for ServiceNow - \n&quot;)
+
+# Modify Environment variables
+# https://docs.servicenow.com/bundle/london-it-service-management/page/product/incident-management/concept/c_IncidentManagementStateModel.html
+Usage_Msg = ( Uber_Small_ASCII + \
+&quot;\n\tFor listing incidents of certain status from ServiceNow:\n\n&quot; + \
+&quot;\t\t&quot; + sys.argv[0] + &quot; -s \&quot;&lt;status&gt;\&quot;\n&quot;)
+
+# Arg Parser https://stackoverflow.com/questions/15753701/argparse-option-for-passing-a-list-as-option https://docs.python.org/2/howto/argparse.html
+parser = argparse.ArgumentParser( description=Usage_Msg , formatter_class=RawTextHelpFormatter)
+
+# Typical operations for ServiceNow states
+parser.add_argument( &quot;-s&quot;, &quot;--state&quot;, help = &quot;List incidents by state.&quot;,  type=int)
+
+# Operators for the state as well
+parser.add_argument( &quot;-so&quot;, &quot;--over-state&quot;, help = &quot;List incidents over a certain state.&quot;,  action=&quot;store_true&quot;)
+parser.add_argument( &quot;-su&quot;, &quot;--under-state&quot;, help = &quot;List incidents under a certain state.&quot;,  action=&quot;store_true&quot;)
+
+# Other attributes
+parser.add_argument( &quot;-p&quot;, &quot;--priority&quot;, help = &quot;List incidents by a priority.&quot;,  type=int)
+parser.add_argument( &quot;-u&quot;, &quot;--urgency&quot;, help = &quot;List incidents by urgency.&quot;,  type=int)
+
+# global args
+args = parser.parse_args()
+
+# Loads the environment variable as JSON structure
+# We will use this later
+Env_JSON = json.dumps(dict(**os.environ), sort_keys=True, indent=4)
+EnvData = json.loads(Env_JSON)
+
+# Some required settings
+S_User = EnvData[&quot;SERVNOW_USER&quot;]
+S_Pass = EnvData[&quot;SERVNOW_PASS&quot;]
+S_Table = EnvData[&quot;SERVNOW_TABLE&quot;]
+S_Instance = EnvData[&quot;SERVNOW_INSTANCE&quot;]
+# S_Server = EnvData[&quot;SERVNOW_SERVER&quot;]
+
+# Setting the Proxy in script if necessary
+if &quot;https_proxy&quot; in EnvData:
+
+    # proxies
+    ProxySess = requests.Session()
+    ProxySess.proxies.update({&apos;https&apos; : EnvData[&quot;https_proxy&quot;]})
+    ProxySess.auth = requests.auth.HTTPBasicAuth(S_User, S_Pass)
+
+    # Create ServiceNow client
+    ServNow = pysnow.Client(instance=S_Instance, session=ProxySess)
+
+elif &quot;http_proxy&quot; in EnvData:
+
+    # proxies
+    ProxySess = requests.Session()
+    ProxySess.proxies.update({&apos;http&apos;: EnvData[&quot;http_proxy&quot;]})
+    ProxySess.auth = requests.auth.HTTPBasicAuth(S_User, S_Pass)
+
+    # Create ServiceNow client
+    ServNow = pysnow.Client(instance=S_Instance, session=ProxySess)
+else:
+    ServNow = pysnow.Client(instance=S_Instance, user=S_User, password=S_Pass)
+
+# API path for getting endpoints on resources
+Inc_Res = ServNow.resource(api_path=S_Table)
+
+def Query_incidents():
+
+    # Grab current state
+    if (args.state):
+        Queried_Incidents = Inc_Res.get(query={&apos;state&apos; : (args.state) }).all()
+    elif (args.priority):
+        Queried_Incidents = Inc_Res.get(query={&apos;priority&apos; : (args.priority) }).all()
+    elif (args.urgency):
+        Queried_Incidents = Inc_Res.get(query={&apos;urgency&apos; : (args.urgency) }).all()
+    else:
+        Queried_Incidents = Inc_Res.get(query={&apos;state&apos; : 1 }).all()
+
+    # Column Values
+    print(
+            &quot;number,&quot; + \
+            &quot;sys_id,&quot; + \
+            &quot;priority,&quot; + \
+            &quot;urgency,&quot; + \
+            &quot;state,&quot; + \
+            # &quot;severity,&quot; + \
+            &quot;madeSLA,&quot; + \
+            &quot;sysCreatedBy,&quot; + \
+            &quot;sysCreatedOn,&quot; + \
+            &quot;sysUpdatedBy,&quot; + \
+            &quot;sysUpdateOn,&quot; + \
+            &quot;active,&quot; + \
+            &quot;shortDescription,&quot; + \
+            &quot;description,&quot; + \
+            &quot;location,&quot; + \
+            &quot;deliveryPlan,&quot; + \
+            &quot;sysTags,&quot; + \
+            # &quot;notify,&quot; + \
+            # &quot;childIncidents,&quot; + \
+            &quot;contactType&quot; )
+
+    for incident in Queried_Incidents:
+        print(
+            # json.dumps(incident, indent=2)
+            # incident values
+            incident[&quot;number&quot;] + &quot;,&quot; + \
+            incident[&quot;sys_id&quot;] + &quot;,&quot; + \
+            incident[&quot;priority&quot;] + &quot;,&quot; + \
+            incident[&quot;urgency&quot;] + &quot;,&quot; + \
+            incident[&quot;state&quot;] + &quot;,&quot; + \
+            # incident[&quot;severity&quot;] + &quot;,&quot; + \
+            incident[&quot;made_sla&quot;] + &quot;,&quot; + \
+            incident[&quot;sys_created_by&quot;] + &quot;,&quot; + \
+            incident[&quot;sys_created_on&quot;] + &quot;,&quot; + \
+            incident[&quot;sys_updated_by&quot;] + &quot;,&quot; + \
+            incident[&quot;sys_updated_on&quot;] + &quot;,&quot; + \
+            incident[&quot;active&quot;] + &quot;,&quot; + \
+            incident[&quot;short_description&quot;].replace(&quot;,&quot;,&quot;\\,&quot;).replace(&quot;\n&quot;,&quot;&quot;) + &quot;,&quot; + \
+            incident[&quot;description&quot;].replace(&quot;,&quot;,&quot;\\,&quot;).replace(&quot;\n&quot;,&quot;&quot;) + &quot;,&quot; + \
+            str(incident[&quot;location&quot;]).replace(&quot;,&quot;,&quot;\\,&quot;).replace(&quot;\n&quot;,&quot;&quot;) + &quot;,&quot; + \
+            incident[&quot;delivery_plan&quot;].replace(&quot;,&quot;,&quot;\\,&quot;).replace(&quot;\n&quot;,&quot;&quot;) + &quot;,&quot; + \
+            incident[&quot;sys_tags&quot;].replace(&quot;,&quot;,&quot;\\,&quot;).replace(&quot;\n&quot;,&quot;&quot;) + &quot;,&quot; + \
+            # str(incident[&quot;notify&quot;]) + &quot;,&quot; + \
+            # incident[&quot;child&quot;] + &quot;,&quot; + \
+            incident[&quot;contact_type&quot;]
+            #incident.correlation_id,
+            #incident.due_date,
+            #incident.closed_by,
+            #incident.close_notes,
+            #incident.work_notes_list,
+        )
+
+def Query_changes():
+
+    # Grab current state
+    if (args.state):
+        Queried_Incidents = Inc_Res.get(query={&apos;state&apos; : (args.state) }).all()
+    elif (args.priority):
+        Queried_Incidents = Inc_Res.get(query={&apos;priority&apos; : (args.priority) }).all()
+    elif (args.urgency):
+        Queried_Incidents = Inc_Res.get(query={&apos;urgency&apos; : (args.urgency) }).all()
+    else:
+        Queried_Incidents = Inc_Res.get(query={&apos;state&apos; : 1 }).all()
+
+    # Column Values
+    print(
+            &quot;number,&quot; + \
+            &quot;sys_id,&quot; + \
+            &quot;priority,&quot; + \
+            &quot;urgency,&quot; + \
+            &quot;state,&quot; + \
+            &quot;severity,&quot; + \
+            &quot;madeSLA,&quot; + \
+            &quot;sysCreatedBy,&quot; + \
+            &quot;sysCreatedOn,&quot; + \
+            &quot;sysUpdatedBy,&quot; + \
+            &quot;sysUpdateOn,&quot; + \
+            &quot;active,&quot; + \
+            &quot;shortDescription,&quot; + \
+            &quot;description,&quot; + \
+            &quot;location,&quot; + \
+            &quot;deliveryPlan,&quot; + \
+            &quot;sysTags,&quot; + \
+            &quot;notify,&quot; + \
+            &quot;childIncidents,&quot; + \
+            &quot;contactType&quot; )
+
+    for incident in Queried_Incidents:
+        print(
+            # json.dumps(incident, indent=2)
+            # incident values
+            incident[&quot;number&quot;] + &quot;,&quot; + \
+            incident[&quot;sys_id&quot;] + &quot;,&quot; + \
+            incident[&quot;priority&quot;] + &quot;,&quot; + \
+            incident[&quot;urgency&quot;] + &quot;,&quot; + \
+            incident[&quot;state&quot;] + &quot;,&quot; + \
+            incident[&quot;severity&quot;] + &quot;,&quot; + \
+            incident[&quot;made_sla&quot;] + &quot;,&quot; + \
+            incident[&quot;sys_created_by&quot;] + &quot;,&quot; + \
+            incident[&quot;sys_created_on&quot;] + &quot;,&quot; + \
+            incident[&quot;sys_updated_by&quot;] + &quot;,&quot; + \
+            incident[&quot;sys_updated_on&quot;] + &quot;,&quot; + \
+            incident[&quot;active&quot;] + &quot;,&quot; + \
+            incident[&quot;short_description&quot;].replace(&quot;,&quot;,&quot;\\,&quot;).replace(&quot;\n&quot;,&quot;&quot;) + &quot;,&quot; + \
+            incident[&quot;description&quot;].replace(&quot;,&quot;,&quot;\\,&quot;).replace(&quot;\n&quot;,&quot;&quot;) + &quot;,&quot; + \
+            str(incident[&quot;location&quot;]).replace(&quot;,&quot;,&quot;\\,&quot;).replace(&quot;\n&quot;,&quot;&quot;) + &quot;,&quot; + \
+            incident[&quot;delivery_plan&quot;].replace(&quot;,&quot;,&quot;\\,&quot;).replace(&quot;\n&quot;,&quot;&quot;) + &quot;,&quot; + \
+            incident[&quot;sys_tags&quot;].replace(&quot;,&quot;,&quot;\\,&quot;).replace(&quot;\n&quot;,&quot;&quot;) + &quot;,&quot; + \
+            str(incident[&quot;notify&quot;]) + &quot;,&quot; + \
+            incident[&quot;child_incidents&quot;] + &quot;,&quot; + \
+            incident[&quot;contact_type&quot;]
+            #incident.correlation_id,
+            #incident.due_date,
+            #incident.closed_by,
+            #incident.close_notes,
+            #incident.work_notes_list,
+        )
+
+if __name__ == &apos;__main__&apos;:
+    # print(&quot;==== Begin Of Script ====&quot;)
+    # if not (args.command):
+    #     Action_Create_Update_Incident()
+    # else:
+    Query_incidents()
+</externalConfigFile>
+            </var>
+            <var name="SERVNOW_INSTANCE">
+                <string></string>
+            </var>
+        </environment>
+    </environments>
+    <knowledgeBase>
+        <urlTemplate name="Incident Details Page ">
+            <urlTemplateElements>
+                <urlTemplateElement>
+                    <literal>https://&lt;instance&gt;.service-now.com/incident.do?sys_id=</literal>
+                </urlTemplateElement>
+            </urlTemplateElements>
+        </urlTemplate>
+        <urlTemplate name="Change Request Details Page">
+            <urlTemplateElements>
+                <urlTemplateElement>
+                    <literal>https://&lt;instance&gt;.service-now.com/change_request.do?sys_id=</literal>
+                </urlTemplateElement>
+            </urlTemplateElements>
+        </urlTemplate>
+        <kbaSet name="Incident Info">
+            <kba>
+                <label>Service Now Incident</label>
+                <urlElements>
+                    <urlElement>
+                        <urlTemplate ref="Incident Details Page "></urlTemplate>
+                    </urlElement>
+                    <urlElement>
+                        <xpath>../cell[(@column=&quot;sys_id&quot;)]</xpath>
+                    </urlElement>
+                </urlElements>
+                <targets>
+                    <target>/geneos/gateway/directory/probe/managedEntity/sampler[(@type=&quot;ServiceNow&quot;)]/dataview[wild(@name,&quot;Incidents-*&quot;)]/rows/row/cell[(@column=&quot;sys_id&quot;)]</target>
+                </targets>
+            </kba>
+        </kbaSet>
+        <kbaSet name="Change Request Info">
+            <kba>
+                <label>Service Now Change Request</label>
+                <urlElements>
+                    <urlElement>
+                        <urlTemplate ref="Change Request Details Page"></urlTemplate>
+                    </urlElement>
+                    <urlElement>
+                        <xpath>../cell[(@column=&quot;sys_id&quot;)]</xpath>
+                    </urlElement>
+                </urlElements>
+                <targets>
+                    <target>/geneos/gateway/directory/probe/managedEntity/sampler[(@type=&quot;ServiceNow&quot;)]/dataview[wild(@name,&quot;Change-*&quot;)]/rows/row/cell[(@column=&quot;sys_id&quot;)]</target>
+                </targets>
+            </kba>
+        </kbaSet>
+    </knowledgeBase>
+</gateway>
