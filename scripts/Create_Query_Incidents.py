@@ -33,8 +33,9 @@ parser.add_argument( "-u", "--update", help = "Update incident data",  action="s
 parser.add_argument( "-q", "--query", help = "Query Incident.",  action="store_true")
 parser.add_argument( "-act", "--action", help = "Incident is not yet triaged.",  action="store_true")
 
+
 # parser.add_argument( "-c", "--close", help = "Close an incident.",  action="store_true")
-parser.add_argument( "-inp", "--in-progress", help = "Incident is assigned and is being investigated.",  action="store_true")
+parser.add_argument( "-inp", "--in_progress", help = "Incident is assigned and is being investigated.",  action="store_true")
 parser.add_argument( "-oh", "--on-hold", help = "Put incident on-hold.",  action="store_true")
 parser.add_argument( "-nt", "--notes", help = "Notes to apply to the Incident ticket",  type=str)
 parser.add_argument( "-im", "--impact", help = "Impact the Incident ticket",  type=int)
@@ -58,6 +59,13 @@ parser.add_argument( "-dv", "--dataview", help = "Name of the Dataview",  type=s
 parser.add_argument( "-rn", "--rowname", help = "RowName of the targeted cell",  type=str)
 parser.add_argument( "-col", "--column", help = "ColumnName of the targeted cell",  type=str)
 parser.add_argument( "-val", "--value", help = "Value of the targeted cell",  type=str)
+parser.add_argument( "-svc", "--service", help = "Value of Managed entity attribute Service",  type=str)
+parser.add_argument( "-cat", "--categ", help = "Value of Managed entity attribute Categ",  type=str)
+parser.add_argument( "-sbc", "--subcateg", help = "Value of Managed entity attribute Subcateg",  type=str)
+parser.add_argument( "-hn", "--host", help = "Hostname of Netprobe",  type=str)
+parser.add_argument( "-un", "--user", help = "Geneos user",  type=str)
+parser.add_argument( "-rc", "--resolve_code", help = "Resolve Code",  type=str)
+parser.add_argument( "-rsn", "--resolve_notes", help = "Resolve Notes",  type=str)
 
 # global args
 args = parser.parse_args()
@@ -68,10 +76,10 @@ Env_JSON = json.dumps(dict(**os.environ), sort_keys=True, indent=4)
 EnvData = json.loads(Env_JSON)
 
 # Some required settings
-S_User = EnvData["SERVNOW_USER"]
-S_Pass = EnvData["SERVNOW_PASS"]
-S_Table = EnvData["SERVNOW_TABLE"]
-S_Instance = EnvData["SERVNOW_INSTANCE"]
+S_User = "admin"
+S_Pass = "ZjrcRji0X7CF"
+S_Table = "/table/incident"
+S_Instance = "dev57023"
 # S_Server = EnvData["SERVNOW_SERVER"]
 
 # Setting the Proxy in script if necessary
@@ -128,6 +136,7 @@ def Command_Create_Incident():
 
     # Create placeholder
     # Row information
+    Gateway = ""
     Column = ""
     RowName = ""
     Value = ""
@@ -156,28 +165,44 @@ def Command_Create_Incident():
     if (args.column):
         Geneos_info += "Column = " + (args.column) + "\n"
         Column = (args.column)
-    ######################################################
+    
+        ######################################################
     if (args.value):
         Geneos_info += "Value = " + (args.value) + "\n"
         Value = (args.value)
     if (args.notes):
         NOTES=(args.notes)
         # Geneos_Payload["notes"] = (args.notes)
+    if (args.host):
+        HOST=(args.host)
+    if (args.gateway):
+        GATEWAY=(args.gateway)
+    if (args.user):
+        USER=(args.user)
+    if (args.service):
+        SERVICE=(args.service)
+    if (args.categ):
+        CATEG=(args.categ)
+    if (args.subcateg):
+        SUBCATEG=(args.subcateg)
+
     print("==== START Geneos Payload ====")
     print("Geneos Information: " + "\n" + Geneos_info  )
     print("==== END Geneos Payload ====")
 
     # Set the payload
     New_Incident = {
-        "short_description" : "Incident created by Geneos " + Column + " is " + Value + " on " + RowName + ".",
-        "category" : "Software", # Because we're a software company.
-        "subcategory" : "Operating System",
+        "short_description" : GATEWAY + ": Incident created by Geneos " + Column + " is " + Value + " on " + RowName + ".",
+        "category" : CATEG, # Because we're a software company.
+        "subcategory" : SUBCATEG,
         "description" : Geneos_info + "\n\n" + NOTES,
-        "comments" : NOTES,
+        #"comments" : NOTES,
         "location" : "Americas",
         "assigned_to" : "",
-        "assignment_group" : "Software",
-        "cmdb_ci": "GCP"
+        "assignment_group" : Gateway,
+        "cmdb_ci": HOST,
+        "business_service": SERVICE,
+        "work_notes": NOTES
          # "cmdb_ci": {11
          #  "value": "AZURE"
          #  }
@@ -213,7 +238,7 @@ def Command_Create_Incident():
     
     # Mark ticket opener as caller
     opened_by_id = res_rec['opened_by']['value']
-    update = {'caller_id': opened_by_id}
+    update = {'caller_id': USER}
     Inc_Res.update(query={'number': ticket_n}, payload=update)
     
     print("==== End Of Script ====")
@@ -226,6 +251,7 @@ def Command_Update_Incident():
 
     # Create placeholder
     # Row information
+    Gateway = ""
     Column = ""
     RowName = ""
     Value = ""
@@ -289,7 +315,7 @@ def Command_Update_Incident():
         "category" : "Software", # Because we're a software company.
         "subcategory" : "Operating System",
         "description" : Geneos_info + "\n\n" + NOTES,
-        "comments" : NOTES,
+	"work_notes" : NOTES,
         "location" : "Americas",
         "assigned_to" : "",
         "assignment_group" : "Software"
@@ -346,6 +372,36 @@ def Command_Close_Incident():
     
 def Command_Resolve_Incident():
     desired_state = 6
+    if (args.resolve_code):
+        resolve=(args.resolve_code)
+    if (args.resolve_notes):
+        resolvenote=(args.resolve_notes)   
+
+    if args.TicketNum != None:
+        ticket_n = args.TicketNum
+    else:
+        print("Ticket Number not supplied. Exiting.")
+        sys.exit(1)
+        
+    try:
+        update = {'state': desired_state}
+        update_stat = update
+	update = {'close_code': resolve}
+	update = {'close_notes': resolvenote}
+        updated_record = Inc_Res.update(query={'number': ticket_n}, payload=update_stat)
+        updated_state = int(updated_record.one()['state'])
+        if desired_state != updated_state:
+	    print("updated state %s" % updated_state)
+	    print("code is %s" % updated_record.one()['close_code'])
+            print("Completed but failed changing ticket state to desired value.")
+        else:
+            print("Ticket %s marked Resolved." % ticket_n)
+    except pysnow.exceptions.NoResults:
+        print("Failed to find incident with ref: %s" % ticket_n)
+        
+
+def Command_InProgress_Incident():
+    desired_state = 2
     if args.TicketNum != None:
         ticket_n = args.TicketNum
     else:
@@ -359,7 +415,7 @@ def Command_Resolve_Incident():
         if desired_state != updated_state:
             print("Completed but failed changing ticket state to desired value.")
         else:
-            print("Ticket %s marked Resolved." % ticket_n)
+            print("Ticket %s marked In-Progress." % ticket_n)
     except pysnow.exceptions.NoResults:
         print("Failed to find incident with ref: %s" % ticket_n)
     
@@ -432,9 +488,13 @@ if __name__ == '__main__':
         Command_Update_Incident()
     elif args.resolve:
         Command_Resolve_Incident()
+    elif args.in_progress:
+        Command_InProgress_Incident ()
     elif args.close:
         Command_Close_Incident()
     elif args.query:
         Query_Incident()
     else:
         print("Unsuported Options")
+
+
