@@ -1,6 +1,12 @@
 # ServiceNow Integration Overview  
 The ability to automated geneos alert messages into your ServiceNow environment, and the ability to analyze.
 
+> ⚠️**DEPRECATED**
+>
+> Please use the updated integration in the [cordial](https://github.com/ITRS-Group/cordial) repo:
+> 
+> Direct link: <https://github.com/ITRS-Group/cordial/tree/main/integrations/servicenow>
+
 ### Contents
 - Toolkit Samplers:
   - *TableName*-Open - List of Tickets that are not closed or not solved
