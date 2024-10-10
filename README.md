@@ -1,7 +1,8 @@
 # ServiceNow Integration Overview  
 The ability to automated geneos alert messages into your ServiceNow environment, and the ability to analyze.
 
-> ⚠️**DEPRECATED**
+> [!WARNING]
+> **DEPRECATED**
 >
 > Please use the updated integration in the [cordial](https://github.com/ITRS-Group/cordial) repo:
 > 
